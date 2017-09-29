@@ -13,7 +13,7 @@ RUN \
 # Install jq
 RUN \
 	echo -e "\nInstalling jq..." && \
-	apk-install -y jq
+	apk add jq
 
 # Install gulp globally
 RUN \
