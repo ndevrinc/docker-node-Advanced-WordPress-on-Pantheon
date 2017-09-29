@@ -1,5 +1,5 @@
 # Includes BackstopJS 3.x, PhantomJS, SlimerJS (with Firefox ESR), CasperJS, Chromium
-FROM docksal/backstopjs:3
+FROM backstopjs/backstopjs:latest
 
 # Set environment variables
 ENV \
