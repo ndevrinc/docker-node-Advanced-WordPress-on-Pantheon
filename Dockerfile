@@ -20,10 +20,15 @@ RUN \
 	echo -e "\nInstalling git..." && \
 	apk add git
 
-# Install shh
+# Install ssh
 RUN \
 	echo -e "\nInstalling shh..." && \
 	apk add openssh
+
+# Install rsync
+RUN \
+	echo -e "\nInstalling rsync..." && \
+	apk add rsync
 
 # Install gulp globally
 RUN \
