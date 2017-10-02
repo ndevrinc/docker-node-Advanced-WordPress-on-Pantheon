@@ -15,6 +15,11 @@ RUN \
 	echo -e "\nInstalling jq..." && \
 	apk add jq
 
+# Install git
+RUN \
+	echo -e "\nInstalling git..." && \
+	apk add git
+
 # Install gulp globally
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
