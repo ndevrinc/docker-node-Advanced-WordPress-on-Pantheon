@@ -20,6 +20,11 @@ RUN \
 	echo -e "\nInstalling git..." && \
 	apk add git
 
+# Install shh
+RUN \
+	echo -e "\nInstalling shh..." && \
+	apk add openssh
+
 # Install gulp globally
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
