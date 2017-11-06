@@ -5,6 +5,12 @@ FROM backstopjs/backstopjs:latest
 ENV \
 	GULP_VERSION=3.9.1
 
+ENV \
+	GRUNT_VERSION=1.0.1
+
+ENV \
+	WEBPACK_VERSION=3.8.1
+
 # Run updates
 RUN \
 	echo -e "\nRunning apk update..." && \
@@ -34,3 +40,13 @@ RUN \
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
 	npm install -g gulp@${GULP_VERSION}
+
+# Install grunt globally
+RUN \
+	echo -e "\nInstalling grunt v${GRUNT_VERSION}..." && \
+	npm install -g grunt@${GRUNT_VERSION}
+
+# Install webpack globally
+RUN \
+	echo -e "\nInstalling webpack v${WEBPACK_VERSION}..." && \
+	npm install -g webpack@${WEBPACK_VERSION}
