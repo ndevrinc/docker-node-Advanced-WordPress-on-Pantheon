@@ -11,6 +11,9 @@ ENV \
 ENV \
 	WEBPACK_VERSION=3.8.1
 
+ENV \
+	BACKSTOP_CRAWL_VERSION=2.3.0
+
 # Run updates
 RUN \
 	echo -e "\nRunning apk update..." && \
@@ -45,6 +48,11 @@ RUN \
 RUN \
 	echo -e "\nInstalling grunt v${GRUNT_VERSION}..." && \
 	npm install -g grunt@${GRUNT_VERSION}
+
+# Install backstop-crawl globally
+RUN \
+	echo -e "\nInstalling backstop-crawl v${BACKSTOP_CRAWL_VERSION}..." && \
+	npm install -g backstop-crawl@${BACKSTOP_CRAWL_VERSION}
 
 # Install webpack globally
 RUN \
