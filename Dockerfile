@@ -27,6 +27,11 @@ RUN \
 	echo -e "\nInstalling jq..." && \
 	apk add jq
 
+# Install wget
+RUN \
+	echo -e "\nInstalling wget..." && \
+	apk add wget
+
 # Install git
 RUN \
 	echo -e "\nInstalling git..." && \
