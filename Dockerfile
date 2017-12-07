@@ -19,6 +19,9 @@ ENV \
 ENV \
 	BACKSTOPJS_VERSION=3.0.36
 
+ENV \
+	YARN_VERSION=1.3.2
+
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
@@ -28,6 +31,13 @@ RUN \
 RUN \
 	echo -e "\nInstalling curl..." && \
 	apt-get install -y curl
+
+# Add Chrome repository
+RUN \
+	echo -e "\nAdding Chrome repository..." && \
+	apt-get update && \
+	curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
 
 # Install Node 8
 RUN \
@@ -95,7 +105,12 @@ RUN \
 	echo -e "\nInstalling Lighthouse v${LIGHTHOUSE_VERSION}..." && \
 	npm install -g lighthouse@${LIGHTHOUSE_VERSION}
 
-RUN \
 # Install BackstopJS globally
-echo "Installing BackstopJS v${BACKSTOPJS_VERSION}..." && \
-npm install -g backstopjs@${BACKSTOPJS_VERSION}
+RUN \
+	echo "Installing BackstopJS v${BACKSTOPJS_VERSION}..." && \
+	npm install -g backstopjs@${BACKSTOPJS_VERSION}
+
+# Install yarn globally
+RUN \
+	echo "Installing yarn v${YARN_VERSION}..." && \
+	npm install -g yarn@${YARN_VERSION}
