@@ -1,5 +1,4 @@
-# Includes BackstopJS 3.x, PhantomJS, SlimerJS (with Firefox ESR), CasperJS, Chromium
-FROM backstopjs/backstopjs:latest
+FROM debian:jessie
 
 # Set environment variables
 ENV \
@@ -17,40 +16,59 @@ ENV \
 ENV \
 	LIGHTHOUSE_VERSION=2.6.0
 
+ENV \
+	BACKSTOPJS_VERSION=3.0.36
+
 # Run updates
 RUN \
-	echo -e "\nRunning apk update..." && \
-	apk update
+	echo -e "\nRunning apt-get update..." && \
+	apt-get update
 
-# Install jq
+# Install curl
 RUN \
-	echo -e "\nInstalling jq..." && \
-	apk add jq
+	echo -e "\nInstalling curl..." && \
+	apt-get install -y curl
 
-# Install wget
+# Install Node 8
 RUN \
-	echo -e "\nInstalling wget..." && \
-	apk add wget
+	echo -e "\nInstalling Node 8..." && \
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
+	apt-get install -y nodejs
 
-# Install git
+# Install Chrome Browser
 RUN \
-	echo -e "\nInstalling git..." && \
-	apk add git
-
-# Install ssh
-RUN \
-	echo -e "\nInstalling shh..." && \
-	apk add openssh
-
-# Install rsync
-RUN \
-	echo -e "\nInstalling rsync..." && \
-	apk add rsync
+	echo -e "\nInstalling Chrome.." && \
+	apt-get install -y chromium-browser
 
 # Install xvfb
 RUN \
 	echo -e "\nInstalling xvfb..." && \
-	apk add xvfb
+	apt-get install -y xvfb
+
+# Install jq
+RUN \
+	echo -e "\nInstalling jq..." && \
+	apt-get install -y jq
+
+# Install wget
+RUN \
+	echo -e "\nInstalling wget..." && \
+	apt-get install -y wget
+
+# Install git
+RUN \
+	echo -e "\nInstalling git..." && \
+	apt-get install -y git
+
+# Install ssh
+RUN \
+	echo -e "\nInstalling shh..." && \
+	apt-get install -y openssh
+
+# Install rsync
+RUN \
+	echo -e "\nInstalling rsync..." && \
+	apt-get install -y rsync
 
 # Install gulp globally
 RUN \
@@ -72,7 +90,12 @@ RUN \
 	echo -e "\nInstalling webpack v${WEBPACK_VERSION}..." && \
 	npm install -g webpack@${WEBPACK_VERSION}
 
-# Install lighthouse globally
+# Install Lighthouse globally
 RUN \
-	echo -e "\nInstalling lighthouse v${LIGHTHOUSE_VERSION}..." && \
+	echo -e "\nInstalling Lighthouse v${LIGHTHOUSE_VERSION}..." && \
 	npm install -g lighthouse@${LIGHTHOUSE_VERSION}
+
+RUN \
+# Install BackstopJS globally
+echo "Installing BackstopJS v${BACKSTOPJS_VERSION}..." && \
+npm install -g backstopjs@${BACKSTOPJS_VERSION}
