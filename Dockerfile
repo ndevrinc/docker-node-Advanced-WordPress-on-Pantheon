@@ -47,6 +47,11 @@ RUN \
 	echo -e "\nInstalling rsync..." && \
 	apk add rsync
 
+# Install xvfb
+RUN \
+	echo -e "\nInstalling xvfb..." && \
+	apk add xvfb
+
 # Install gulp globally
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \

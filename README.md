@@ -16,3 +16,4 @@ Dockerfile for node steps of Advanced-WordPress-on-Pantheon
 * wget
 * openssh
 * rsync
+* xvfb
