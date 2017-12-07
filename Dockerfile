@@ -110,3 +110,14 @@ RUN \
 RUN \
 	echo "Installing yarn v${YARN_VERSION}..." && \
 	npm install -g yarn@${YARN_VERSION}
+
+# Add Chrome as a user
+RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
+    && mkdir -p /home/chrome/reports && chown -R chrome:chrome /home/chrome
+
+# some place we can mount and view lighthouse reports
+VOLUME /home/chrome/reports
+WORKDIR /home/chrome/reports
+
+# Run Chrome non-privileged
+USER chrome
