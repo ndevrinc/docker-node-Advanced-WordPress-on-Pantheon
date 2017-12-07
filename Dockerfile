@@ -32,7 +32,7 @@ RUN \
 # Install Node 8
 RUN \
 	echo -e "\nInstalling Node 8..." && \
-	curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+	curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get install -y nodejs
 
 # Install Chrome Browser
