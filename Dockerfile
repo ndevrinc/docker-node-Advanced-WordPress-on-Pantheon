@@ -68,8 +68,8 @@ RUN \
 
 # Install ssh
 RUN \
-	echo -e "\nInstalling shh..." && \
-	apt-get install -y openssh
+	echo -e "\nInstalling ssh..." && \
+	apt-get install -y ssh
 
 # Install rsync
 RUN \
