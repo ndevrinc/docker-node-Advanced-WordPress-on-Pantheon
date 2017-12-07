@@ -32,13 +32,6 @@ RUN \
 	echo -e "\nInstalling curl..." && \
 	apt-get install -y curl
 
-# Add Chrome repository
-RUN \
-	echo -e "\nAdding Chrome repository..." && \
-	apt-get update && \
-	curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-
 # Install Node 8
 RUN \
 	echo -e "\nInstalling Node 8..." && \
@@ -48,7 +41,10 @@ RUN \
 # Install Chrome Browser
 RUN \
 	echo -e "\nInstalling Chrome.." && \
-	apt-get install -y chromium-browser
+	curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+	&& apt-get update && apt-get install -y \
+	google-chrome-stable
 
 # Install xvfb
 RUN \
