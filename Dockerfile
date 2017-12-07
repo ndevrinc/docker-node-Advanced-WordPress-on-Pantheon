@@ -14,9 +14,6 @@ ENV \
 ENV \
 	BACKSTOP_CRAWL_VERSION=2.3.1
 
-ENV \
-	LIGHTHOUSE_VERSION=2.6.0
-
 # Run updates
 RUN \
 	echo -e "\nRunning apk update..." && \
@@ -66,8 +63,3 @@ RUN \
 RUN \
 	echo -e "\nInstalling webpack v${WEBPACK_VERSION}..." && \
 	npm install -g webpack@${WEBPACK_VERSION}
-
-# Install lighthouse globally
-RUN \
-	echo -e "\nInstalling lighthouse v${LIGHTHOUSE_VERSION}..." && \
-	npm install -g lighthouse@${LIGHTHOUSE_VERSION}
