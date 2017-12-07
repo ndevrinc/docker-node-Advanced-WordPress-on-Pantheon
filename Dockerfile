@@ -22,12 +22,6 @@ ENV \
 ENV \
 	YARN_VERSION=1.3.2
 
-ENV \
-	PHANTOMJS_VERSION=2.1.1 \
-	# Workaround to fix phantomjs-prebuilt installation errors
-	# See https://github.com/Medium/phantomjs/issues/707
-	NPM_CONFIG_UNSAFE_PERM=true
-
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
@@ -82,18 +76,6 @@ RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get install -y rsync
 
-# Installing dependencies from archives - not only this allows us to control versions,
-# but the resulting image size is 130MB+ less (!) compared to an npm install (440MB vs 575MB).
-RUN \
-	mkdir -p /opt && \
-	# PhantomJS
-	echo "Downloading PhantomJS v${PHANTOMJS_VERSION}..." && \
-	curl -sL "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tar.bz2" | tar jx && \
-	mv phantomjs-${PHANTOMJS_VERSION}-linux-x86_64 /opt/phantomjs && \
-	ln -s /opt/phantomjs/bin/phantomjs /usr/bin/phantomjs && \
-	echo "Fixing PhantomJS on Alpine" && \
-	curl -sL "https://github.com/dustinblackman/phantomized/releases/download/${PHANTOMJS_VERSION}/dockerized-phantomjs.tar.gz" | tar zx -C /
-
 # Install gulp globally
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
@@ -105,14 +87,14 @@ RUN \
 	npm install -g grunt@${GRUNT_VERSION}
 
 # Install BackstopJS globally
-RUN \
-	echo "Installing BackstopJS v${BACKSTOPJS_VERSION}..." && \
-	npm install -g backstopjs@${BACKSTOPJS_VERSION}
+#RUN \
+#	echo "Installing BackstopJS v${BACKSTOPJS_VERSION}..." && \
+#	npm install -g backstopjs@${BACKSTOPJS_VERSION}
 
 # Install backstop-crawl globally
-RUN \
-	echo -e "\nInstalling backstop-crawl v${BACKSTOP_CRAWL_VERSION}..." && \
-	npm install -g backstop-crawl@${BACKSTOP_CRAWL_VERSION}
+#RUN \
+#	echo -e "\nInstalling backstop-crawl v${BACKSTOP_CRAWL_VERSION}..." && \
+#	npm install -g backstop-crawl@${BACKSTOP_CRAWL_VERSION}
 
 # Install webpack globally
 RUN \
