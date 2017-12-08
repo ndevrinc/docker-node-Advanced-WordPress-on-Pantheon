@@ -5,6 +5,11 @@ RUN \
 	echo -e "\nRunning apt-get update..." && \
 	apt-get update
 
+# Install jq
+RUN \
+	echo -e "\nInstalling jq..." && \
+	apt-get install -y jq
+
 # Install curl
 RUN \
 	echo -e "\nInstalling curl..." && \

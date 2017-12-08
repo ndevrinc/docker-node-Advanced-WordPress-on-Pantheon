@@ -7,3 +7,4 @@ Dockerfile for the Lighthouse step of [Advanced-WordPress-on-Pantheon](https://g
 * git
 * ssh
 * rsync
+* jq
