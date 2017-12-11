@@ -44,6 +44,11 @@ RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get install -y rsync
 
+# Install rsync
+RUN \
+	echo -e "\nInstalling jq..." && \
+	apt-get install -y jq
+
 # Install Google Chrome
 RUN \
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
