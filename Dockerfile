@@ -2,10 +2,6 @@ FROM debian:jessie
 
 # Set environment variables
 ENV \
-	GULP_VERSION=3.9.1 \
-	GRUNT_VERSION=1.0.1 \
-	WEBPACK_VERSION=3.8.1 \
-	YARN_VERSION=1.3.2 \
 	LIGHTHOUSE_VERSION=2.6.0
 
 # Run updates
@@ -55,26 +51,6 @@ RUN \
 	sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
 	apt-get update && \
 	apt-get install -y google-chrome-stable
-
-# Install gulp globally
-RUN \
-	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
-	npm install -g gulp@${GULP_VERSION}
-
-# Install grunt globally
-RUN \
-	echo -e "\nInstalling grunt v${GRUNT_VERSION}..." && \
-	npm install -g grunt@${GRUNT_VERSION}
-
-# Install webpack globally
-RUN \
-	echo -e "\nInstalling webpack v${WEBPACK_VERSION}..." && \
-	npm install -g webpack@${WEBPACK_VERSION}
-
-# Install yarn globally
-RUN \
-	echo "Installing yarn v${YARN_VERSION}..." && \
-	npm install -g yarn@${YARN_VERSION}
 
 # Install lighthouse globally
 RUN \
