@@ -2,6 +2,7 @@
 Dockerfile for node steps of Advanced-WordPress-on-Pantheon
 
 ## Includes
+* Debian Jessie
 * Chromium `63.x`
 * gulp `3.9.1`
 * grunt `1.0.1`
