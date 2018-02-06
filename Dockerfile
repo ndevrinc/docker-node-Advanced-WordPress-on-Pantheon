@@ -38,7 +38,7 @@ RUN \
 # Install openssl
 RUN \
 	echo -e "\nInstalling openssl..." && \
-	apk add openssl
+	apt-get install -y openssl
 
 # Install git
 RUN \
