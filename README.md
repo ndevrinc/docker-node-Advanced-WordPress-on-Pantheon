@@ -12,5 +12,6 @@ Dockerfile for node steps of Advanced-WordPress-on-Pantheon
 * backstop-crawl `2.3.1`
 * jq
 * wget
+* openssl
 * openssh
 * rsync
