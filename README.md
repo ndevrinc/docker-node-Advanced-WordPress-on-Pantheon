@@ -10,5 +10,6 @@ Dockerfile for BackstopJS portion of [Advanced-WordPress-on-Pantheon](https://gi
 * backstop-crawl `2.3.1`
 * jq
 * wget
+* openssl
 * openssh
 * rsync
