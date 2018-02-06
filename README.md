@@ -5,6 +5,7 @@ Dockerfile for the Lighthouse step of [Advanced-WordPress-on-Pantheon](https://g
 * NodeJS `8.x`
 * wget
 * git
-* ssh
+* openssl
+* openssh
 * rsync
 * jq

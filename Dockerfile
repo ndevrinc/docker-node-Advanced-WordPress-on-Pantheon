@@ -20,6 +20,12 @@ RUN \
 	echo -e "\nInstalling wget..." && \
 	apt-get install -y wget
 
+
+# Install openssl
+RUN \
+	echo -e "\nInstalling openssl..." && \
+	apk add openssl
+
 # Install git
 RUN \
 	echo -e "\nInstalling git..." && \
