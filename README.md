@@ -1,5 +1,5 @@
 # docker-node-Advanced-WordPress-on-Pantheon
-Dockerfile for JavaScriptt task runner steps of [Advanced-WordPress-on-Pantheon](https://github.com/ataylorme/Advanced-WordPress-on-Pantheon) based on `debian:jessie`.
+Dockerfile for JavaScript task runner steps of [Advanced-WordPress-on-Pantheon](https://github.com/ataylorme/Advanced-WordPress-on-Pantheon) based on `debian:jessie`.
 
 ## Includes
 * gulp `3.9.1`
@@ -8,6 +8,6 @@ Dockerfile for JavaScriptt task runner steps of [Advanced-WordPress-on-Pantheon]
 * yarn `1.3.2`
 * NodeJS `8.x`
 * wget
-* git
-* ssh
+* openssl
+* openssh
 * rsync
