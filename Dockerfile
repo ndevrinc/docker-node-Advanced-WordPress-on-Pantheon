@@ -2,7 +2,7 @@ FROM debian:jessie
 
 # Set environment variables
 ENV \
-	LIGHTHOUSE_VERSION=2.6.0
+	LIGHTHOUSE_VERSION=2.9.4
 
 # Run updates
 RUN \
