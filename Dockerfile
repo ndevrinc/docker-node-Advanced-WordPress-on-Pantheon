@@ -16,39 +16,39 @@ ENV \
 
 # Run updates
 RUN \
-	echo -e "\nRunning apk update..." && \
-	apk update
+	echo -e "\nRunning apt-get update..." && \
+	apt-get -y update
 
 # Install jq
 RUN \
 	echo -e "\nInstalling jq..." && \
-	apk add jq
+	apt-get -y install jq
 
 # Install wget
 RUN \
 	echo -e "\nInstalling wget..." && \
-	apk add wget
+	apt-get -y install wget
 
 
 # Install openssl
 RUN \
 	echo -e "\nInstalling openssl..." && \
-	apk add openssl
+	apt-get -y install openssl
 
 # Install git
 RUN \
 	echo -e "\nInstalling git..." && \
-	apk add git
+	apt-get -y install git
 
 # Install ssh
 RUN \
 	echo -e "\nInstalling shh..." && \
-	apk add openssh
+	apt-get -y install openssh
 
 # Install rsync
 RUN \
 	echo -e "\nInstalling rsync..." && \
-	apk add rsync
+	apt-get -y install rsync
 
 # Install gulp globally
 RUN \
