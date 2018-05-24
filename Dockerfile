@@ -17,7 +17,7 @@ ENV \
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
-	apt-get -y update
+	apt-get update
 
 # Install jq
 RUN \
@@ -42,8 +42,8 @@ RUN \
 
 # Install ssh
 RUN \
-	echo -e "\nInstalling shh..." && \
-	apt-get -y install openssh
+	echo -e "\nInstalling ssh..." && \
+	apt-get -y install ssh
 
 # Install rsync
 RUN \
