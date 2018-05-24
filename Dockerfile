@@ -2,16 +2,16 @@ FROM debian:jessie
 
 # Set environment variables
 ENV \
-	GULP_VERSION=3.9.1
+	GULP_VERSION=next
 
 ENV \
-	GRUNT_VERSION=1.0.1
+	GRUNT_VERSION=1.0.2
 
 ENV \
-	WEBPACK_VERSION=3.8.1
+	WEBPACK_VERSION=4.8.3
 
 ENV \
-	YARN_VERSION=1.3.2
+	YARN_VERSION=1.7.0
 
 # Run updates
 RUN \
