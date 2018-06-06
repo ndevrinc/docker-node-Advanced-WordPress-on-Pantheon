@@ -2,7 +2,7 @@ FROM debian:jessie
 
 # Set environment variables
 ENV \
-	GULP_VERSION=next
+	GULP_VERSION=4.0.0
 
 ENV \
 	GRUNT_VERSION=1.0.2
