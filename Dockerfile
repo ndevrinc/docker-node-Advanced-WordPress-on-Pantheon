@@ -3,7 +3,10 @@ FROM backstopjs/backstopjs:latest
 
 # Set environment variables
 ENV \
-	GULP_VERSION=3.9.1
+	GULP_VERSION=4.0.0
+
+ENV \
+	GULP_CLI_VERSION=2.0.1
 
 ENV \
 	GRUNT_VERSION=1.0.1
@@ -54,6 +57,11 @@ RUN \
 RUN \
 	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
 	npm install -g gulp@${GULP_VERSION}
+
+# Install gulp-cli globally
+RUN \
+	echo -e "\nInstalling gulp-cli v${GULP_CLI_VERSION}..." && \
+	npm install -g gulp-cli@${GULP_CLI_VERSION}
 
 # Install grunt globally
 RUN \
