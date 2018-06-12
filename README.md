@@ -11,6 +11,7 @@ Dockerfile for node steps of Advanced-WordPress-on-Pantheon
 * grunt `1.0.1`
 * webpack `3.8.1`
 * backstop-crawl `2.3.1`
+* jest `23.1.0`
 * jq
 * wget
 * openssl
