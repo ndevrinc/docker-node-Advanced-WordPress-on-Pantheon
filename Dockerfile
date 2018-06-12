@@ -17,10 +17,6 @@ ENV \
 ENV \
 	BACKSTOP_CRAWL_VERSION=2.3.1
 
-
-ENV \
-	NPM_VERSION=latest
-
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
@@ -59,8 +55,8 @@ RUN \
 
 # Upgrade NPM
 RUN \
-	echo -e "\nUpgrading NPM to ${NPM_VERSION}..." && \
-	npm install -g npm@${NPM_VERSION}
+	echo -e "\nUpgrading NPM to the latest..." && \
+	curl -sL https://www.npmjs.org/install.sh | sh
 
 # Install gulp globally
 RUN \
