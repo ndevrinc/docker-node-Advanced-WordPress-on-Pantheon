@@ -2,6 +2,7 @@ FROM node:8.11.2
 
 # Set environment variables
 ENV \
+	JEST_VERSION=23.1.0 \
 	GULP_VERSION=4.0.0 \
 	GULP_CLI_VERSION=2.0.1 \
 	GRUNT_VERSION=1.0.1 \
@@ -78,25 +79,30 @@ RUN \
 
 # Install gulp globally
 RUN \
-	echo -e "\nInstalling gulp v${GULP_VERSION}..." && \
+	echo -e "\nInstalling gulp $GULP_VERSION..." && \
 	npm install -g gulp@${GULP_VERSION}
 
 # Install gulp-cli globally
 RUN \
-	echo -e "\nInstalling gulp-cli v${GULP_CLI_VERSION}..." && \
+	echo -e "\nInstalling gulp-cli $GULP_CLI_VERSION..." && \
 	npm install -g gulp-cli@${GULP_CLI_VERSION}
 
 # Install grunt globally
 RUN \
-	echo -e "\nInstalling grunt v${GRUNT_VERSION}..." && \
+	echo -e "\nInstalling grunt $GRUNT_VERSION..." && \
 	npm install -g grunt@${GRUNT_VERSION}
 
 # Install backstop-crawl globally
 RUN \
-	echo -e "\nInstalling backstop-crawl v${BACKSTOP_CRAWL_VERSION}..." && \
+	echo -e "\nInstalling backstop-crawl $BACKSTOP_CRAWL_VERSION..." && \
 	npm install -g backstop-crawl@${BACKSTOP_CRAWL_VERSION}
 
 # Install webpack globally
 RUN \
-	echo -e "\nInstalling webpack v${WEBPACK_VERSION}..." && \
+	echo -e "\nInstalling webpack $WEBPACK_VERSION..." && \
 	npm install -g webpack@${WEBPACK_VERSION}
+
+# Install jest globally
+RUN \
+	echo -e "\nInstalling jest $JEST_VERSION..." && \
+	npm install -g webpack@${JEST_VERSION}
