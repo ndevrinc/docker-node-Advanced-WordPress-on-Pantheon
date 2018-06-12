@@ -24,7 +24,7 @@ RUN \
 # Base packages
 RUN \
 	echo -e "\nInstalling base packages..." && \
-	apt-get install -y git sudo software-properties-common python-software-properties
+	apt-get install -y git sudo software-properties-common python-software-properties libx11-xcb1
 
 # Upgrade NPM
 RUN \
@@ -105,4 +105,4 @@ RUN \
 # Install jest globally
 RUN \
 	echo -e "\nInstalling jest $JEST_VERSION..." && \
-	npm install -g webpack@${JEST_VERSION}
+	npm install -g jest@${JEST_VERSION}
