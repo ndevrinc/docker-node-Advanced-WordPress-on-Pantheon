@@ -1,26 +1,49 @@
-# Includes BackstopJS 3.x, PhantomJS, SlimerJS (with Firefox ESR), CasperJS, Chromium
-FROM backstopjs/backstopjs:latest
+FROM node:8.11.2
 
 # Set environment variables
 ENV \
-	GULP_VERSION=4.0.0
-
-ENV \
-	GULP_CLI_VERSION=2.0.1
-
-ENV \
-	GRUNT_VERSION=1.0.1
-
-ENV \
-	WEBPACK_VERSION=3.8.1
-
-ENV \
-	BACKSTOP_CRAWL_VERSION=2.3.1
+	GULP_VERSION=4.0.0 \
+	GULP_CLI_VERSION=2.0.1 \
+	GRUNT_VERSION=1.0.1 \
+	WEBPACK_VERSION=3.8.1 \
+	BACKSTOP_CRAWL_VERSION=2.3.1 \
+	PHANTOMJS_VERSION=2.1.7 \
+	CASPERJS_VERSION=1.1.4 \
+	SLIMERJS_VERSION=0.10.3 \
+	BACKSTOPJS_VERSION=latest \
+	# Workaround to fix phantomjs-prebuilt installation errors
+	# See https://github.com/Medium/phantomjs/issues/707
+	NPM_CONFIG_UNSAFE_PERM=true
 
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
 	apt-get update
+
+# Base packages
+RUN \
+	echo -e "\nInstalling base packages..." && \
+	apt-get install -y git sudo software-properties-common python-software-properties
+
+# Upgrade NPM
+RUN \
+	echo -e "\nUpgrading NPM to the latest..." && \
+	npm install -g npm@latest
+
+RUN echo -e "\nInstalling BackstopJS Node modules..."
+RUN sudo npm install -g --unsafe-perm=true --allow-root phantomjs@${PHANTOMJS_VERSION}
+RUN sudo npm install -g --unsafe-perm=true --allow-root casperjs@${CASPERJS_VERSION}
+RUN sudo npm install -g --unsafe-perm=true --allow-root slimerjs@${SLIMERJS_VERSION}
+RUN sudo npm install -g --unsafe-perm=true --allow-root backstopjs@${BACKSTOPJS_VERSION}
+
+RUN echo -e "\nInstalling Google Chrome..."
+RUN wget https://dl-ssl.google.com/linux/linux_signing_key.pub && sudo apt-key add linux_signing_key.pub
+RUN sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
+
+RUN	apt-get -y update && \
+	apt-get -y install google-chrome-stable
+
+RUN apt-get install -y firefox-esr
 
 # Install jq
 RUN \
@@ -52,11 +75,6 @@ RUN \
 RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get -y install rsync
-
-# Upgrade NPM
-RUN \
-	echo -e "\nUpgrading NPM to the latest..." && \
-	curl -sL https://www.npmjs.org/install.sh | sh
 
 # Install gulp globally
 RUN \
