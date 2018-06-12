@@ -1,4 +1,4 @@
-FROM node:8.11.2
+FROM node:8-slim
 
 # Set environment variables
 ENV \
@@ -6,15 +6,7 @@ ENV \
 	GULP_VERSION=4.0.0 \
 	GULP_CLI_VERSION=2.0.1 \
 	GRUNT_VERSION=1.0.1 \
-	WEBPACK_VERSION=3.8.1 \
-	BACKSTOP_CRAWL_VERSION=2.3.1 \
-	PHANTOMJS_VERSION=2.1.7 \
-	CASPERJS_VERSION=1.1.4 \
-	SLIMERJS_VERSION=0.10.3 \
-	BACKSTOPJS_VERSION=latest \
-	# Workaround to fix phantomjs-prebuilt installation errors
-	# See https://github.com/Medium/phantomjs/issues/707
-	NPM_CONFIG_UNSAFE_PERM=true
+	WEBPACK_VERSION=3.8.1
 
 # Run updates
 RUN \
@@ -24,27 +16,32 @@ RUN \
 # Base packages
 RUN \
 	echo -e "\nInstalling base packages..." && \
-	apt-get install -y git sudo software-properties-common python-software-properties libx11-xcb1
+	apt-get install -y git sudo software-properties-common python-software-properties
+
+# See https://crbug.com/795759
+RUN apt-get update && apt-get install -yq libgconf-2-4
+
+# Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
+# installs, work.
+RUN apt-get update && apt-get install -y wget --no-install-recommends \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get purge --auto-remove -y curl \
+    && rm -rf /src/*.deb
+
+# It's a good idea to use dumb-init to help prevent zombie chrome processes.
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
 
 # Upgrade NPM
 RUN \
 	echo -e "\nUpgrading NPM to the latest..." && \
 	npm install -g npm@latest
-
-RUN echo -e "\nInstalling BackstopJS Node modules..."
-RUN sudo npm install -g --unsafe-perm=true --allow-root phantomjs@${PHANTOMJS_VERSION}
-RUN sudo npm install -g --unsafe-perm=true --allow-root casperjs@${CASPERJS_VERSION}
-RUN sudo npm install -g --unsafe-perm=true --allow-root slimerjs@${SLIMERJS_VERSION}
-RUN sudo npm install -g --unsafe-perm=true --allow-root backstopjs@${BACKSTOPJS_VERSION}
-
-RUN echo -e "\nInstalling Google Chrome..."
-RUN wget https://dl-ssl.google.com/linux/linux_signing_key.pub && sudo apt-key add linux_signing_key.pub
-RUN sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
-
-RUN	apt-get -y update && \
-	apt-get -y install google-chrome-stable
-
-RUN apt-get install -y firefox-esr
 
 # Install jq
 RUN \
@@ -92,11 +89,6 @@ RUN \
 	echo -e "\nInstalling grunt $GRUNT_VERSION..." && \
 	npm install -g grunt@${GRUNT_VERSION}
 
-# Install backstop-crawl globally
-RUN \
-	echo -e "\nInstalling backstop-crawl $BACKSTOP_CRAWL_VERSION..." && \
-	npm install -g backstop-crawl@${BACKSTOP_CRAWL_VERSION}
-
 # Install webpack globally
 RUN \
 	echo -e "\nInstalling webpack $WEBPACK_VERSION..." && \
@@ -106,3 +98,14 @@ RUN \
 RUN \
 	echo -e "\nInstalling jest $JEST_VERSION..." && \
 	npm install -g jest@${JEST_VERSION}
+
+# Add user so we don't need --no-sandbox.
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /node_modules
+
+# Run everything after as non-privileged user.
+USER pptruser
+
+ENTRYPOINT ["dumb-init", "--"]
