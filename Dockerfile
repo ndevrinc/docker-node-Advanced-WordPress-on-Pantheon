@@ -17,6 +17,10 @@ ENV \
 ENV \
 	BACKSTOP_CRAWL_VERSION=2.3.1
 
+
+ENV \
+	NPM_VERSION=latest
+
 # Run updates
 RUN \
 	echo -e "\nRunning apt-get update..." && \
@@ -52,6 +56,11 @@ RUN \
 RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get -y install rsync
+
+# Upgrade NPM
+RUN \
+	echo -e "\nUpgrading NPM to ${NPM_VERSION}..." && \
+	npm install -g npm@${NPM_VERSION}
 
 # Install gulp globally
 RUN \
