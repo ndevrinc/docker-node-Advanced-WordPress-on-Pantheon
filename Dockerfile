@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM node:8.11.2
 
 # Set environment variables
 ENV \
@@ -54,6 +54,11 @@ RUN \
 RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get install -y rsync
+
+# Update npm
+RUN \
+	echo -e "\nUpdating npm..." && \
+	npm install -g npm@latest
 
 # Install gulp globally
 RUN \
