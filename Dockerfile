@@ -12,6 +12,7 @@ ENV \
 	CASPERJS_VERSION=1.1.4 \
 	SLIMERJS_VERSION=0.10.3 \
 	BACKSTOPJS_VERSION=latest \
+	LIGHTHOUSE_VERSION=2.9.4 \
 	# Workaround to fix phantomjs-prebuilt installation errors
 	# See https://github.com/Medium/phantomjs/issues/707
 	NPM_CONFIG_UNSAFE_PERM=true
@@ -77,6 +78,12 @@ RUN \
 	echo -e "\nInstalling rsync..." && \
 	apt-get -y install rsync
 
+# Install jq
+RUN \
+	echo -e "\nInstalling jq..." && \
+	apt-get install -y jq
+
+
 # Install gulp globally
 RUN \
 	echo -e "\nInstalling gulp $GULP_VERSION..." && \
@@ -106,3 +113,8 @@ RUN \
 RUN \
 	echo -e "\nInstalling jest $JEST_VERSION..." && \
 	npm install -g jest@${JEST_VERSION}
+
+# Install lighthouse globally
+RUN \
+	echo -e "\nInstalling lighthouse v${LIGHTHOUSE_VERSION}..." && \
+	npm install -g lighthouse@${LIGHTHOUSE_VERSION}
